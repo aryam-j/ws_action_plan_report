@@ -330,7 +330,6 @@ def get_section3(html) -> list[SchemeView]:
                 )
             )
         elif len(cells) == 17:
-            # TODO Handle total
             scheme_views.append(
                 SchemeView(
                     sno="",

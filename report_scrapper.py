@@ -7,7 +7,7 @@ from typing import Optional
 
 # str -> HTML(BS) -> CustomObject -> dict -> DataFrame -> File
 
-panchayat_codes = [64061,64059,64056,64057,64055,64060,64058]
+panchayat_codes = [64061, 64059, 64056, 64057, 64055, 64060, 64058]
 link = "https://egramswaraj.gov.in/webservice/approvedActionPlanExternalReport/{}/2022-2023"
 
 
@@ -434,7 +434,6 @@ def make_xls(writer, p_stat: PanchayatStat, section1: PlanSummary, section2: lis
 
     ActivityDetails.to_df(section4).to_excel(writer, sheet_name=p_stat.village_panchayat,
                                              startrow=18 + len(section2) + len(section3), startcol=0)
-
 
 
 def main():

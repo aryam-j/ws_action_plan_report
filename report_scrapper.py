@@ -420,20 +420,26 @@ def make_xls(writer, p_stat: PanchayatStat, section1: PlanSummary, section2: lis
     worksheet = writer.book.add_worksheet(p_stat.village_panchayat)
     writer.sheets[p_stat.village_panchayat] = worksheet
 
-    heading = writer.book.add_format({'bold': True, 'font_size': 20})
+    heading = writer.book.add_format({'bold': True, 'font_size': 20, 'font_color': 'red'})
+    heading1 = writer.book.add_format({'bold': True, 'font_size': 15})
+
 
     worksheet.write(0, 0, "Approved Action Plan", heading)
     p_stat.to_df().to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=2, startcol=0)
 
-    section1.to_df().to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=6, startcol=0)
+    worksheet.write(5, 0, "Plan Summary", heading1)
+    section1.to_df().to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=7, startcol=0)
 
-    SectoralView.to_df(section2).to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=10, startcol=0)
+    worksheet.write(10, 0, "Sectoral View", heading1)
+    SectoralView.to_df(section2).to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=12, startcol=0)
 
-    SchemeView.to_df(section3).to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=14 + len(section2),
+    worksheet.write(14 + len(section2), 0, "Scheme View", heading1)
+    SchemeView.to_df(section3).to_excel(writer, sheet_name=p_stat.village_panchayat, startrow=16 + len(section2),
                                         startcol=0)
 
+    worksheet.write(18 + len(section2) + len(section3), 0, "Activity Details", heading1)
     ActivityDetails.to_df(section4).to_excel(writer, sheet_name=p_stat.village_panchayat,
-                                             startrow=18 + len(section2) + len(section3), startcol=0)
+                                             startrow=20 + len(section2) + len(section3), startcol=0)
 
 
 def main():
@@ -457,8 +463,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# TODO
-# 1. Complete ActivityDetail Schema
-# 2. Add "Total" Rows, 3 & 4
-# 3. Verify Final Output with Actual data
